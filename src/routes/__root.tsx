@@ -76,23 +76,34 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+      { name: "theme-color", content: "#ffffff" },
+      { title: "Dr. (Major) Amit Kumar Srivastava — Narayan Clinic, Gorakhpur" },
+      {
+        name: "description",
+        content:
+          "Dr. (Major) Amit Kumar Srivastava, MD Medicine. Trusted physician at Narayan Clinic, Gorakhpur. Diabetes, hypertension, internal medicine and long-term family healthcare.",
+      },
+      { property: "og:title", content: "Dr. (Major) Amit Kumar Srivastava — Narayan Clinic" },
+      {
+        property: "og:description",
+        content:
+          "Compassionate, evidence-based care from a physician Gorakhpur families trust. 4.9★ rated on Google.",
+      },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap",
       },
     ],
   }),
+
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
