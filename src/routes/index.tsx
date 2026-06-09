@@ -122,6 +122,56 @@ function CountUp({ to, suffix = "", duration = 1.8 }: { to: number; suffix?: str
   );
 }
 
+/* ---------- announcement bar ---------- */
+
+function AnnouncementBar() {
+  return (
+    <motion.div
+      initial={{ y: -40, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      className="relative z-[60] overflow-hidden bg-navy text-white"
+      style={{ minHeight: 38 }}
+    >
+      <div className="container-page flex items-center justify-center gap-2 py-2 text-[11.5px] md:text-[12.5px] font-medium tracking-[0.01em]">
+        <span aria-hidden className="text-sky">◆</span>
+        <span className="hidden md:inline text-white/90">
+          Website Engineered by{" "}
+          <a
+            href="https://alphamedia.example"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white font-semibold underline-offset-4 hover:underline decoration-sky/60"
+          >
+            Alpha Media
+          </a>
+          <span className="mx-2.5 text-white/30">|</span>
+          <span className="text-white/75">Piyush Yadav — Founder & Chief Strategist</span>
+        </span>
+        <span className="md:hidden text-white/90">
+          Engineered by{" "}
+          <a
+            href="https://alphamedia.example"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white font-semibold underline-offset-4 hover:underline decoration-sky/60"
+          >
+            Alpha Media
+          </a>
+        </span>
+      </div>
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 left-0 w-1/3 shine-sweep"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent 0%, rgba(56,189,248,0.18) 50%, transparent 100%)",
+        }}
+      />
+    </motion.div>
+  );
+}
+
 /* ---------- nav ---------- */
 
 function Nav() {
@@ -134,56 +184,51 @@ function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   const links = [
+    ["Home", "#top"],
     ["About", "#about"],
-    ["Specializations", "#specializations"],
-    ["Why Dr. Amit", "#why"],
+    ["Services", "#specializations"],
     ["Reviews", "#reviews"],
-    ["Visit", "#visit"],
+    ["Contact", "#visit"],
   ] as const;
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled ? "py-2" : "py-4"
+      className={`sticky top-0 inset-x-0 z-50 transition-all duration-300 ${
+        scrolled ? "py-2" : "py-3"
       }`}
     >
       <div className="container-page">
         <div
-          className={`flex items-center justify-between rounded-full px-4 md:px-6 py-2.5 transition-all ${
-            scrolled ? "glass" : "bg-transparent"
+          className={`flex items-center justify-between rounded-2xl px-4 md:px-6 py-2.5 transition-all ${
+            scrolled ? "glass shadow-[var(--shadow-soft)]" : "bg-white/60 backdrop-blur-md border border-white/40"
           }`}
         >
-          <a href="#top" className="flex items-center gap-2.5">
-            <span className="size-9 rounded-2xl bg-brand grid place-items-center text-white shadow-[var(--shadow-glow)]">
-              <Stethoscope className="size-4.5" strokeWidth={2.4} />
+          <a href="#top" className="flex items-center gap-3 min-w-0">
+            <span className="relative size-10 rounded-2xl bg-brand grid place-items-center text-white shadow-[var(--shadow-glow)] shrink-0">
+              <Stethoscope className="size-5" strokeWidth={2.2} />
+              <span className="absolute -inset-1 rounded-2xl ring-1 ring-white/40" />
             </span>
-            <span className="font-display font-bold text-navy tracking-tight leading-tight text-[15px] md:text-base">
+            <span className="font-display font-bold text-navy tracking-tight leading-tight text-[15px] md:text-base min-w-0">
               Narayan Clinic
-              <span className="block text-[10px] md:text-[11px] font-medium text-muted-foreground tracking-wide">
+              <span className="block text-[10px] md:text-[11px] font-medium text-muted-foreground tracking-wide truncate">
                 Dr. (Major) Amit Kumar Srivastava
               </span>
             </span>
           </a>
-          <nav className="hidden lg:flex items-center gap-8 text-sm font-medium text-navy/80">
+          <nav className="hidden lg:flex items-center gap-7 text-sm font-medium text-navy/80">
             {links.map(([l, h]) => (
-              <a key={h} href={h} className="hover:text-primary transition-colors">
+              <a key={h} href={h} className="relative hover:text-primary transition-colors after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-px after:w-0 after:bg-primary after:transition-all hover:after:w-full">
                 {l}
               </a>
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <a
-              href={`tel:${PHONE}`}
-              className="hidden md:inline-flex btn-ghost !py-2 !px-4 text-sm"
-            >
-              <Phone className="size-4" /> Call
-            </a>
-            <a href="#book" className="hidden md:inline-flex btn-primary btn-primary-hover !py-2 !px-4 text-sm">
-              Book Visit <ArrowRight className="size-4" />
+            <a href="#book" className="hidden md:inline-flex btn-primary btn-primary-hover !py-2 !px-5 text-sm">
+              Book Appointment <ArrowRight className="size-4" />
             </a>
             <button
               aria-label="Menu"
               onClick={() => setOpen((v) => !v)}
-              className="lg:hidden size-10 grid place-items-center rounded-full glass"
+              className="lg:hidden size-10 grid place-items-center rounded-2xl glass"
             >
               {open ? <X className="size-5" /> : <Menu className="size-5" />}
             </button>
@@ -195,24 +240,28 @@ function Nav() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="lg:hidden mt-2 glass rounded-3xl p-4 space-y-1"
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:hidden mt-2 glass rounded-3xl p-3 space-y-1"
             >
-              {links.map(([l, h]) => (
-                <a
+              {links.map(([l, h], i) => (
+                <motion.a
                   key={h}
                   href={h}
                   onClick={() => setOpen(false)}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.04 }}
                   className="block px-4 py-3 rounded-2xl text-navy font-medium hover:bg-muted"
                 >
                   {l}
-                </a>
+                </motion.a>
               ))}
               <a
                 href="#book"
                 onClick={() => setOpen(false)}
                 className="btn-primary w-full mt-2"
               >
-                Book Visit <ArrowRight className="size-4" />
+                Book Appointment <ArrowRight className="size-4" />
               </a>
             </motion.div>
           )}
@@ -227,28 +276,35 @@ function Nav() {
 function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const yImg = useTransform(scrollYProgress, [0, 1], [0, -60]);
-  const yCard = useTransform(scrollYProgress, [0, 1], [0, -30]);
+  const yImg = useTransform(scrollYProgress, [0, 1], [0, -40]);
+
+  const indicators = [
+    { icon: Star, label: "4.9 Rating", sub: "Google Reviews", tone: "amber" },
+    { icon: Users, label: "120+", sub: "Patient Reviews", tone: "blue" },
+    { icon: ShieldCheck, label: "Ex-Major", sub: "Army Medical", tone: "navy" },
+    { icon: HeartPulse, label: "Patient First", sub: "Always", tone: "rose" },
+  ] as const;
+  const tones: Record<string, string> = {
+    amber: "bg-amber-50 text-amber-600",
+    blue: "bg-blue-50 text-primary",
+    navy: "bg-navy/5 text-navy",
+    rose: "bg-rose-50 text-rose-600",
+  };
 
   return (
-    <section ref={ref} id="top" className="relative pt-28 md:pt-36 pb-16 md:pb-28 overflow-hidden">
+    <section ref={ref} id="top" className="relative pt-10 md:pt-16 pb-20 md:pb-28 overflow-hidden">
+      <div aria-hidden className="absolute inset-0 -z-10" style={{ background: "var(--gradient-hero)" }} />
       <div
         aria-hidden
-        className="absolute inset-0 -z-10"
-        style={{ background: "var(--gradient-hero)" }}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-x-0 top-0 -z-10 h-[600px]"
+        className="absolute inset-x-0 top-0 -z-10 h-[700px]"
         style={{
-          backgroundImage:
-            "radial-gradient(rgba(15,23,42,0.05) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(rgba(15,23,42,0.05) 1px, transparent 1px)",
           backgroundSize: "22px 22px",
           maskImage: "linear-gradient(to bottom, black, transparent)",
         }}
       />
 
-      <div className="container-page grid lg:grid-cols-[1.05fr_1fr] gap-12 lg:gap-16 items-center">
+      <div className="container-page grid lg:grid-cols-[1.05fr_1fr] gap-12 lg:gap-20 items-center">
         {/* Left */}
         <div>
           <Reveal>
@@ -264,7 +320,7 @@ function Hero() {
             </h1>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
+            <p className="mt-5 text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
               MD Medicine · Consultant Physician at{" "}
               <span className="text-navy font-semibold">Narayan Clinic</span>. Calm,
               evidence-based care for diabetes, hypertension and long-term family health —
@@ -273,7 +329,7 @@ function Hero() {
           </Reveal>
 
           <Reveal delay={0.18}>
-            <div className="mt-7 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-wrap gap-3">
               <a href="#book" className="btn-primary btn-primary-hover">
                 <CalendarCheck className="size-4.5" /> Book Appointment
               </a>
@@ -289,89 +345,129 @@ function Hero() {
               </a>
             </div>
           </Reveal>
-
-          <Reveal delay={0.25}>
-            <div className="mt-9 grid grid-cols-3 gap-3 max-w-md">
-              {[
-                { k: "4.9★", v: "Google Rating" },
-                { k: "120+", v: "Patient Reviews" },
-                { k: "20+", v: "Years Practice" },
-              ].map((s) => (
-                <div key={s.v} className="rounded-2xl bg-white ring-soft p-3.5">
-                  <div className="font-display text-xl md:text-2xl font-bold text-navy">{s.k}</div>
-                  <div className="text-[11px] md:text-xs text-muted-foreground mt-0.5">{s.v}</div>
-                </div>
-              ))}
-            </div>
-          </Reveal>
         </div>
 
-        {/* Right: portrait */}
+        {/* Right: premium portrait */}
         <div className="relative">
           <motion.div
             style={{ y: yImg }}
-            className="relative mx-auto w-full max-w-[480px] aspect-[4/5] rounded-[2.5rem] overflow-hidden ring-soft"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="relative mx-auto w-full max-w-[460px]"
           >
+            {/* glow */}
             <div
               aria-hidden
-              className="absolute -inset-8 -z-10 rounded-[3rem] blur-3xl opacity-60"
+              className="absolute -inset-10 -z-10 rounded-[3rem] blur-3xl portrait-glow"
               style={{ background: "var(--gradient-brand)" }}
             />
-            <img
-              src={doctorImg}
-              alt="Portrait of Dr. (Major) Amit Kumar Srivastava"
-              width={1024}
-              height={1280}
-              fetchPriority="high"
-              className="size-full object-cover"
-            />
-          </motion.div>
-
-          {/* floating cards */}
-          <motion.div
-            style={{ y: yCard }}
-            className="absolute -left-2 md:-left-8 top-10 glass rounded-2xl px-4 py-3 flex items-center gap-3 animate-float"
-          >
-            <span className="size-9 rounded-xl bg-amber-100 text-amber-600 grid place-items-center">
-              <Star className="size-4 fill-amber-500 stroke-amber-500" />
-            </span>
-            <div>
-              <div className="text-sm font-bold text-navy leading-none">4.9 / 5.0</div>
-              <div className="text-[11px] text-muted-foreground mt-1">120+ Google reviews</div>
+            {/* outer luxury frame */}
+            <div className="relative rounded-[2.25rem] p-[1.5px] bg-gradient-to-b from-white/80 via-white/30 to-white/10 shadow-[0_30px_80px_-30px_rgba(37,99,235,0.45)]">
+              <div className="rounded-[2.1rem] p-2 bg-white/70 backdrop-blur-xl border border-white/60">
+                <div className="relative aspect-[4/5] rounded-[1.75rem] overflow-hidden">
+                  <img
+                    src={doctorImg}
+                    alt="Portrait of Dr. (Major) Amit Kumar Srivastava"
+                    width={1024}
+                    height={1280}
+                    fetchPriority="high"
+                    className="size-full object-cover"
+                  />
+                  {/* gold accent corner */}
+                  <span
+                    aria-hidden
+                    className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-[0.14em] uppercase text-navy bg-white/85 backdrop-blur ring-1 ring-white/80"
+                  >
+                    MD Medicine
+                  </span>
+                </div>
+              </div>
             </div>
           </motion.div>
 
-          <motion.div
-            style={{ y: yCard }}
-            className="absolute -right-2 md:-right-6 top-1/3 glass rounded-2xl px-4 py-3 flex items-center gap-3 animate-float"
-            transition={{ delay: 0.2 }}
-          >
-            <span className="size-9 rounded-xl bg-blue-100 text-blue-600 grid place-items-center">
-              <ShieldCheck className="size-4" />
-            </span>
-            <div>
-              <div className="text-sm font-bold text-navy leading-none">Ex-Major</div>
-              <div className="text-[11px] text-muted-foreground mt-1">Indian Army Medical</div>
+          {/* trust indicators BELOW the portrait — never on face */}
+          <Reveal delay={0.25}>
+            <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-2.5 max-w-[460px] mx-auto">
+              {indicators.map((it, i) => (
+                <motion.div
+                  key={it.label}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + i * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="rounded-2xl bg-white/90 backdrop-blur ring-soft p-3 flex flex-col items-center text-center"
+                >
+                  <span className={`grid size-8 place-items-center rounded-lg ${tones[it.tone]}`}>
+                    <it.icon className="size-4" />
+                  </span>
+                  <div className="mt-2 text-[12.5px] font-bold text-navy leading-tight">{it.label}</div>
+                  <div className="text-[10px] text-muted-foreground mt-0.5">{it.sub}</div>
+                </motion.div>
+              ))}
             </div>
-          </motion.div>
-
-          <motion.div
-            style={{ y: yCard }}
-            className="absolute left-4 md:left-2 -bottom-2 glass rounded-2xl px-4 py-3 flex items-center gap-3 animate-float"
-          >
-            <span className="size-9 rounded-xl bg-rose-100 text-rose-600 grid place-items-center">
-              <HeartPulse className="size-4" />
-            </span>
-            <div>
-              <div className="text-sm font-bold text-navy leading-none">Patient First</div>
-              <div className="text-[11px] text-muted-foreground mt-1">Listens. Explains. Cares.</div>
-            </div>
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </section>
   );
 }
+
+/* ---------- authority ---------- */
+
+function Authority() {
+  const pillars = [
+    { icon: ShieldCheck, t: "Military Discipline", d: "Structured, calm, dependable. Every consultation runs with precision." },
+    { icon: HeartPulse, t: "Patient-Centered Care", d: "You are heard fully. Time is given. Nothing is rushed." },
+    { icon: Microscope, t: "Accurate Diagnosis", d: "Hands-on clinical exam, smart investigation, clear answers." },
+    { icon: CheckCircle2, t: "Evidence-Based Treatment", d: "Guideline-led prescriptions. No over-treatment, ever." },
+    { icon: Clock, t: "Long-Term Health Management", d: "Families followed across years — not visits." },
+  ];
+  return (
+    <section id="authority" className="relative py-20 md:py-32 bg-navy text-white overflow-hidden">
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-40"
+        style={{
+          background:
+            "radial-gradient(800px 400px at 10% 0%, color-mix(in oklab, #38bdf8 30%, transparent), transparent 60%), radial-gradient(700px 400px at 100% 100%, color-mix(in oklab, #7c3aed 25%, transparent), transparent 60%)",
+        }}
+      />
+      <div className="container-page relative">
+        <Reveal>
+          <div className="max-w-2xl">
+            <div className="text-xs font-semibold uppercase tracking-[0.22em] text-sky">
+              Trusted Across Gorakhpur
+            </div>
+            <h2 className="mt-4 font-display text-3xl md:text-5xl font-bold leading-tight">
+              Why patients trust <span className="bg-gradient-to-r from-sky to-white bg-clip-text text-transparent">Dr. Amit.</span>
+            </h2>
+            <p className="mt-5 text-white/70 text-base md:text-lg leading-relaxed">
+              Five quiet commitments that have defined two decades of bedside medicine.
+            </p>
+          </div>
+        </Reveal>
+        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {pillars.map((p, i) => (
+            <Reveal key={p.t} delay={i * 0.07}>
+              <motion.div
+                whileHover={{ y: -6 }}
+                transition={{ type: "spring", stiffness: 240, damping: 20 }}
+                className="h-full rounded-2xl p-5 bg-white/[0.04] backdrop-blur border border-white/10 hover:border-sky/40 hover:bg-white/[0.07] transition-colors"
+              >
+                <span className="grid size-11 place-items-center rounded-xl bg-sky/15 text-sky ring-1 ring-sky/30">
+                  <p.icon className="size-5" />
+                </span>
+                <h3 className="mt-4 font-display font-bold text-white text-[16px]">{p.t}</h3>
+                <p className="mt-2 text-sm text-white/65 leading-relaxed">{p.d}</p>
+              </motion.div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
 /* ---------- trust strip ---------- */
 
@@ -991,14 +1087,31 @@ function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="container-page py-5 flex flex-wrap justify-between gap-3 text-xs text-white/55">
+        <div className="container-page py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-xs text-white/55">
           <div>© {new Date().getFullYear()} Narayan Clinic. All rights reserved.</div>
-          <div>For medical emergencies, please call your nearest hospital.</div>
+          <div className="flex items-center gap-2 text-white/60">
+            <span aria-hidden className="text-sky">◆</span>
+            <span>
+              Website Engineered by{" "}
+              <a
+                href="https://alphamedia.example"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white font-semibold tracking-wide hover:text-sky transition-colors"
+              >
+                Alpha Media
+              </a>
+              <span className="mx-2 text-white/25">·</span>
+              <span className="text-white/70">Piyush Yadav</span>
+              <span className="text-white/40"> — Founder & Chief Strategist</span>
+            </span>
+          </div>
         </div>
       </div>
     </footer>
   );
 }
+
 
 /* ---------- sticky mobile CTA ---------- */
 
@@ -1036,8 +1149,10 @@ function MobileCTA() {
 function Home() {
   return (
     <main className="min-h-dvh bg-background">
+      <AnnouncementBar />
       <Nav />
       <Hero />
+      <Authority />
       <TrustStrip />
       <About />
       <Specializations />
@@ -1051,3 +1166,4 @@ function Home() {
     </main>
   );
 }
+

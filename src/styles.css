@@ -154,3 +154,16 @@
   100% { box-shadow: 0 0 0 24px transparent; }
 }
 @utility pulse-ring { animation: pulse-ring 2.4s ease-out infinite; }
+
+@keyframes shine-sweep {
+  0% { transform: translateX(-120%); }
+  60%, 100% { transform: translateX(220%); }
+}
+@utility shine-sweep { animation: shine-sweep 7s ease-in-out infinite; }
+
+@keyframes portrait-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+@utility portrait-glow { animation: portrait-glow 6s ease-in-out infinite; }
+
