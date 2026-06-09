@@ -1087,14 +1087,31 @@ function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="container-page py-5 flex flex-wrap justify-between gap-3 text-xs text-white/55">
+        <div className="container-page py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-xs text-white/55">
           <div>© {new Date().getFullYear()} Narayan Clinic. All rights reserved.</div>
-          <div>For medical emergencies, please call your nearest hospital.</div>
+          <div className="flex items-center gap-2 text-white/60">
+            <span aria-hidden className="text-sky">◆</span>
+            <span>
+              Website Engineered by{" "}
+              <a
+                href="https://alphamedia.example"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white font-semibold tracking-wide hover:text-sky transition-colors"
+              >
+                Alpha Media
+              </a>
+              <span className="mx-2 text-white/25">·</span>
+              <span className="text-white/70">Piyush Yadav</span>
+              <span className="text-white/40"> — Founder & Chief Strategist</span>
+            </span>
+          </div>
         </div>
       </div>
     </footer>
   );
 }
+
 
 /* ---------- sticky mobile CTA ---------- */
 
