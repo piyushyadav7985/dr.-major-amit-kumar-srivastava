@@ -369,9 +369,12 @@ function Authority() {
             <div className="text-xs font-semibold uppercase tracking-[0.22em] text-sky">
               Trusted Across Gorakhpur
             </div>
-            <h2 className="mt-4 font-display text-3xl md:text-5xl font-bold leading-tight">
-              Why patients trust <span className="bg-gradient-to-r from-sky to-white bg-clip-text text-transparent">Dr. Amit.</span>
-            </h2>
+           <h2 className="mt-4 font-display text-3xl md:text-5xl font-bold leading-tight text-white">
+  Why patients trust{" "}
+  <span className="bg-gradient-to-r from-sky to-white bg-clip-text text-transparent">
+    Dr. Amit.
+  </span>
+</h2>
             <p className="mt-5 text-white/70 text-base md:text-lg leading-relaxed">
               Five quiet commitments that have defined two decades of bedside medicine.
             </p>
