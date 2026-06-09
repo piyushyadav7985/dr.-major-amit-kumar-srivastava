@@ -1,31 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from "motion/react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import {
-  Phone,
-  MessageCircle,
-  MapPin,
-  Star,
-  ShieldCheck,
-  Stethoscope,
-  HeartPulse,
-  Activity,
-  Pill,
-  ThermometerSun,
-  Microscope,
-  Wind,
-  Salad,
-  CalendarCheck,
-  ArrowRight,
-  Award,
-  Clock,
-  Users,
-  CheckCircle2,
-  ChevronDown,
-  Navigation as NavIcon,
-  Menu,
-  X,
-} from "lucide-react";
+import { Phone, MessageCircle, MapPin, Star, ShieldCheck, Stethoscope, HeartPulse, Activity, Pill, ThermometerSun, Microscope, Wind, Salad, CalendarCheck, ArrowRight, Award, Clock, Users, CircleCheck as CheckCircle2, ChevronDown, Navigation as NavIcon, Menu, X } from "lucide-react";
 import doctorImg from "@/assets/doctor.jpg";
 
 const PHONE = "+919519893270";
@@ -35,50 +10,6 @@ const CLINIC_ADDRESS =
   "200 m south from Chauraha, Nahar Road, Daudpur, Gorakhpur, Uttar Pradesh 273001";
 const MAPS_URL =
   "https://www.google.com/maps/place/Dr.+(Major)+Amit+Kumar+Srivastava,+NARAYAN+CLINIC/@26.7376455,83.37304,17z";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Dr. (Major) Amit Kumar Srivastava — Narayan Clinic, Gorakhpur" },
-      {
-        name: "description",
-        content:
-          "MD Medicine. Trusted Gorakhpur physician for diabetes, hypertension, internal medicine & family healthcare. 4.9★ on Google, 120+ reviews.",
-      },
-      { property: "og:title", content: "Dr. (Major) Amit Kumar Srivastava — Narayan Clinic" },
-      {
-        property: "og:description",
-        content:
-          "Compassionate, evidence-based care from a physician Gorakhpur families trust.",
-      },
-      { property: "og:url", content: "/" },
-    ],
-    links: [{ rel: "canonical", href: "/" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Physician",
-          name: "Dr. (Major) Amit Kumar Srivastava",
-          medicalSpecialty: ["InternalMedicine", "Diabetic", "PrimaryCare"],
-          telephone: PHONE,
-          aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "120" },
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: "Nahar Road, Daudpur",
-            addressLocality: "Gorakhpur",
-            addressRegion: "Uttar Pradesh",
-            postalCode: "273001",
-            addressCountry: "IN",
-          },
-          worksFor: { "@type": "MedicalClinic", name: "Narayan Clinic" },
-        }),
-      },
-    ],
-  }),
-  component: Home,
-});
 
 /* ---------- helpers ---------- */
 
@@ -1144,9 +1075,9 @@ function MobileCTA() {
   );
 }
 
-/* ---------- page ---------- */
+/* ---------- app ---------- */
 
-function Home() {
+function App() {
   return (
     <main className="min-h-dvh bg-background">
       <AnnouncementBar />
@@ -1167,3 +1098,4 @@ function Home() {
   );
 }
 
+export default App;
