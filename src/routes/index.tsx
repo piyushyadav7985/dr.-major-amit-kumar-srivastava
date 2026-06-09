@@ -1149,8 +1149,10 @@ function MobileCTA() {
 function Home() {
   return (
     <main className="min-h-dvh bg-background">
+      <AnnouncementBar />
       <Nav />
       <Hero />
+      <Authority />
       <TrustStrip />
       <About />
       <Specializations />
@@ -1164,3 +1166,4 @@ function Home() {
     </main>
   );
 }
+
